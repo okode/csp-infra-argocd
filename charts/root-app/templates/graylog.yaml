@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: graylog
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://charts.kong-z.com
+    chart: graylog
+    targetRevision: 2.3.8
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: graylog
+  syncPolicy:
+    automated:
+      selfHeal: true

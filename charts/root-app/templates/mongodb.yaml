@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami/
+    targetRevision: 15.6.12
+    chart: mongodb
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mongo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
